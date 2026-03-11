@@ -18,3 +18,10 @@
 ---
 # Encapsulation:
    It is used to hide the sensitive code from the users, in GO encapsulation is implemented by capitalizing the feilds so that the functions will be make them public if the functions are public then are said to be on package level which means remaining functions can use them.
+
+---
+
+# Inheritance
+   In GO language there is no allow for inheritance directly so instead we implement using a concept called **Composition** through **Struct Embedding** and a struct embed another struct aalowing it to inherit the feilds and metholds 
+
+---
