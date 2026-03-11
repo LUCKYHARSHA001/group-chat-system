@@ -30,3 +30,10 @@
    Abstraction is a process of hiding the complexity to the user and just showing the required interface to the user
    But unlike other languages it doesnt use abstarct classes but we achive it through **Interface** and this Interface shows what it can do but not how it will be done 
    ex:Think of a TV remote. You know that pressing the "Power" button turns the TV on. You don't need to know the electrical engineering inside the TV to use it. The button is the abstraction.
+
+---
+
+# polymorphism:
+   it allows you to treat different objects as if they were the same type, as long as they share a specific behavior.
+   unlike other languages which achives polymorphism using inheritance in go language we can get polymorphism using the **interfaces**\n
+   ->in this it uses **duck typing**: if it implements all the methods in the interface then it woeks as polymorphism      
