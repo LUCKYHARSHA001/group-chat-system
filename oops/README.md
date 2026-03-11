@@ -21,7 +21,12 @@
 
 ---
 
-# Inheritance
+# Inheritance:
    In GO language there is no allow for inheritance directly so instead we implement using a concept called **Composition** through **Struct Embedding** and a struct embed another struct aalowing it to inherit the feilds and metholds 
 
 ---
+
+# Abstraction:
+   Abstraction is a process of hiding the complexity to the user and just showing the required interface to the user
+   But unlike other languages it doesnt use abstarct classes but we achive it through **Interface** and this Interface shows what it can do but not how it will be done 
+   ex:Think of a TV remote. You know that pressing the "Power" button turns the TV on. You don't need to know the electrical engineering inside the TV to use it. The button is the abstraction.
