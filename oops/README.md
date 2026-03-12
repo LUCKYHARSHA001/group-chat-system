@@ -19,6 +19,9 @@
 # Encapsulation:
    It is used to hide the sensitive code from the users, in GO encapsulation is implemented by capitalizing the feilds so that the functions will be make them public if the functions are public then are said to be on package level which means remaining functions can use them.
 
+   #### Pointer Reciever:
+   in GO language Pointer receiver is used to make the **permenant changes** making it changes in the original memory unlike value receiver which makes the changes the data in copy of the data making the original data remains the same
+
 ---
 
 # Inheritance:
