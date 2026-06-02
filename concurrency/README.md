@@ -31,4 +31,23 @@
   1. starting a goroutine and forgetting to wait for it to finish.  
   2. Reading or writing shared variables without synchronization.
   3. using goroutines for work that is simple and sequential, where the extra complexity is unnecessary.  
+
+---
+
+## Channels:  
+  Channels are Go's built-in way for goroutine to communicate and synchronize.  
+  ->Think of them like a pipes: where one goroutine sends value and another recives them and channel helps to coordinate the exchange safely.  
+  ->A channel carries values of a specific type so a **chan int** can only send and receive int values.  
+  ->In Go lang **<-** is the both send and receive operator which is depending on direction.  
+  ex: 
+    ch:=make(chan int)  // creating channel
+    ch<-10   // sending
+    x:=<-ch  // receiving
   
+  ->these channels are especially used when one goroutine produces work and another consumes it or when multiple goroutines need to coordinate progress.  
+
+  ### use cases:  
+  1. when you need to pass data between goroutines.    
+  2. when you need to synchronize through message passing.  
+  3. when you are building producer-consumer flows,pipelines or background workers.  
+  4. when you want one goroutine to wait for another without explicit mutexes.
