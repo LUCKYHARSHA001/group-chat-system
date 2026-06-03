@@ -84,4 +84,28 @@
 ---  
 
 ## Select:  
+  In go **select** is the way you wait on multiple channel operations at the same time.  
+  ->It is mainly used for writing concurrent code because it lets a goroutine respond to whichever channel becomes ready first  
+  ex:  
+  select{  
+    case msg:=<-ch1:  
+      fmt.println(msg)  
+    case ch2 <- 10:  
+      fmt.println("sent")
+    default:  
+      fmt.println("no channel ready")  
+  }  
+  -> we can think "select" as similar to a switch, but instead of checking value , it checks channel operations. Each case is a send or receive on a channel and Go runs the first case that is ready.  
+  -> If one of the channel operations can proceed, select chooses it.  
+  -> if more than one are ready Go picks one at random.  
+  -> if none are ready then immediately the default block will run.  
+   
+   ### use cases:  
+    1. A server waiting for work,shutdown or timeout signals.  
+    2. A request that should fail if it takes tht very long.  
+    3. long running goroutines that need to stop when a cancel signal arrives.  
+  
+---
 
+## sync.Mutex:
+  
