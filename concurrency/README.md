@@ -101,11 +101,10 @@
   -> if none are ready then immediately the default block will run.  
    
    ### use cases:  
-    1. A server waiting for work,shutdown or timeout signals.  
-    2. A request that should fail if it takes tht very long.  
-    3. long running goroutines that need to stop when a cancel signal arrives.  
+   1. A server waiting for work,shutdown or timeout signals.  
+   2. A request that should fail if it takes tht very long.  
+   3. long running goroutines that need to stop when a cancel signal arrives.  
   
 ---
 
 ## sync.Mutex:
-  
