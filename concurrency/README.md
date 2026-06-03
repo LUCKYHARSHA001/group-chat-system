@@ -1,4 +1,4 @@
-# oops concepts
+# Concurrency
 
 ---
 
@@ -85,4 +85,4 @@
 ---  
 
 ## Select:  
-  
+
