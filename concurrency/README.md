@@ -40,9 +40,9 @@
   ->A channel carries values of a specific type so a **chan int** can only send and receive int values.  
   ->In Go lang **<-** is the both send and receive operator which is depending on direction.  
   ex: 
-    ch:=make(chan int)  // creating channel
-    ch<-10   // sending
-    x:=<-ch  // receiving
+    ch:=make(chan int)  // creating channel  
+    ch<-10   // sending  
+    x:=<-ch  // receiving  
   
   ->these channels are especially used when one goroutine produces work and another consumes it or when multiple goroutines need to coordinate progress.  
 
@@ -51,3 +51,38 @@
   2. when you need to synchronize through message passing.  
   3. when you are building producer-consumer flows,pipelines or background workers.  
   4. when you want one goroutine to wait for another without explicit mutexes.
+
+---
+
+## sync.waitGroup:  
+  It is Go's standard way to wait for a group od goroutines to finish before your program continues.  
+  -> It is especially useful when you start several background tasks and need to block untill all of them are done.  
+  ### How it works:  
+  -> A waitGroup works like a counter.You increase the counter when you start a goroutine, decrease it when that goroutine finishes, and call Wait() to pause until the counter reaches zero.  
+  1. Add(n)  //to register work  
+  2. Done()  //inside goroutine when it completes  
+  3. wait()  //in main goroutine to block until everything is finished  
+
+  ->without a waitGroup your main function may exit before other goroutines complete.  
+
+  ### use cases:  
+  1. launching multiple API calls and waiting for all of them to finish.  
+  2. Running several workers that process jobs in parallel.  
+  3. Starting background initialization tasks.  
+  4. Waiting for cleanup tasks, file writes, or batch jobs to complete.   
+
+  ### code:  
+  var wg sync.waitGroup  
+  for i:=0;i<5;i++{  
+    wg.Add(1)  
+    go func(){  
+      defer wg.Done()
+
+    }()  
+  }  
+  wg.Wait()  
+
+---  
+
+## Select:  
+  
