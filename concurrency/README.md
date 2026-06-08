@@ -152,3 +152,11 @@
 ---
 
 ## Race Detector:  
+  It is a a built-in tool that helps you find data races in concurrent code. It is especially useful when multiple goroutines access the same memory and at leasr one of them writes proper synchronization.  
+
+  -> A data race happens when two or more goroutine access the same variable at the same time, and at least one access is a write, with no synchronization protecting that access. The race detector instruments your program at runtime and reports these unsafe accesses while the program is running.  
+
+  ### where:  
+  1. Testing concurrent code.  
+  2. Running local development builds.  
+  3. CI pipelines for backend services.  
