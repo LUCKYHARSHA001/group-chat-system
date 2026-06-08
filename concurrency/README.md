@@ -137,12 +137,12 @@
   ->Rlock is for readers while lock is for writers.  
   
   ### why:  
-    A normal mutex allows only one goroutine ar a time even if they are only reading where as RWMutex improoves concurrency by letting multiple readers proceed together when no writer is active.  
+  A normal mutex allows only one goroutine ar a time even if they are only reading where as RWMutex improoves concurrency by letting multiple readers proceed together when no writer is active.  
   
   ### where:  
-    1. The same data is read frequently by many goroutines.  
-    2. Writes happen occasionally.  
-    3. You want better read throughput than a plain mutex can provide.  
+  1. The same data is read frequently by many goroutines.  
+  2. Writes happen occasionally.  
+  3. You want better read throughput than a plain mutex can provide.  
   
   ### few rules:  
   1. pair every RLock with RUnlock and every Lock with Unlock.  
@@ -152,4 +152,3 @@
 ---
 
 ## Race Detector:  
-  
