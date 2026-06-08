@@ -123,3 +123,33 @@
   1. multiple goroutines needss to access the same data  
   2. when you need fast ,diirect protection around shared memory.  
   3. the data structure is easy to guard than to redesign with channels.
+
+---  
+
+## Sync.RWMutex:
+  Sync.RWMutex is a reader-writer lock. It lets many go routines read at the sametime , but only one goroutine can write at a time, and writing is exlusive. It is useful when your data is read for more often than it is writtern like as caches, configuration values ,lookup tables and in-memory state by many goroutines.  
+  ->RWMutex is part part of Go's syncpackage and designed for protecting shared data with a heavy read access pattern.  
+  -> It has main four methods
+  1. RLock
+  2. RUnlock
+  3. Lock
+  4. Unlock  
+  ->Rlock is for readers while lock is for writers.  
+  
+  ### why:  
+    A normal mutex allows only one goroutine ar a time even if they are only reading where as RWMutex improoves concurrency by letting multiple readers proceed together when no writer is active.  
+  
+  ### where:  
+    1. The same data is read frequently by many goroutines.  
+    2. Writes happen occasionally.  
+    3. You want better read throughput than a plain mutex can provide.  
+  
+  ### few rules:  
+  1. pair every RLock with RUnlock and every Lock with Unlock.  
+  2. do not hold locks longer than needed because it blocks other goroutines.  
+  3. Be careful with lock odering to avoid deadlocks in bigger systems.  
+
+---
+
+## Race Detector:  
+  
