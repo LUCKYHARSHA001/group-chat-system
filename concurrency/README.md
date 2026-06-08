@@ -108,4 +108,18 @@
 ---
 
 ## sync.Mutex:
-  changes
+  Sync.Mutex is Go's basic Mutual exclusion lock.It protects shared data that only one goroutine can access a critical section at a time which helps to prevent race conditions.  
+  -> A mutex is a lock with two operations
+  1. lock()  
+  2. unlock()  
+  ->when one goroutine locks it ,other goroutines trying to lock the same mutex must wait until its unlocked.  
+  ->Go's mutex has a usefull zero value: an unlocked mutex works immediately so usually there is no need extra initiallization.  
+  ->Shared memory becomes dangerous when multiple goroutines reaad and write the same data at same time. A mutex fixes that by allowing only one goroutine into a protected code section which prevents inconsistance updates and data races.  
+  ex:  
+  mu.lock()  
+  defer mu.unlock()
+
+  ### use cases:  
+  1. multiple goroutines needss to access the same data  
+  2. when you need fast ,diirect protection around shared memory.  
+  3. the data structure is easy to guard than to redesign with channels.
