@@ -1,0 +1,60 @@
+# Documentation / Article that how i approched it:  
+
+## 🚀Overview:  
+  So the Thing we have been doing is using Grpc in go we have to establish connection between server and client and make messages pass from client to server and server to client using bidirectional streaming.
+
+## Approch:
+we have to write 3 files  
+1. proto 
+2. server
+3. client
+
+## proto:  
+
+Think of **.proto** file as a contract between server and client  
+
+-> In traditional Web like **Rest Api we use Json format** . Json is plain text which makes it which makes it more and bulky causing performace issues  
+-> To solve this problem the framework called Grpc which is directly developed by google is using a **mechanism called Protobuf** . This protobuf instead of sending direct text this will **packs our data into compressed binary format**  
+-> And also this Grpc is a framework which is mainly used as native framework which helps us to write code on different languages like go,c++,python and yet automatically translate it into code what we want for perfect synchronization , so we can write once the file and run everywhere using the **compiler protoc**  
+
+
+### what i wrote:  
+``` 
+syntax="proto3'
+```
+-> this tells the system that we are using version 3 of protobuf
+
+```
+ package chat;
+```
+-> this creates unique namespace to prevent collision .
+
+```
+option go_package="scratch-chat/proto;chat";
+```
+-> this will say that when we are compiling place the file in proto and inside the chat package  
+
+```
+message Request {
+    string client = 1;
+    string text = 2;
+}
+
+message Response{
+    string server = 1;
+    string text = 2;
+}
+```
+-> these are the blueprints saying what should be the request look like and what should the response look like.  
+
+```
+service ChatService {
+    rpc StreamChat(stream Request) returns (stream Response);
+}
+```
+
+-> in this we are **declaring a remote procedure call** called streamchat and this says that **stream request** means taking request not as single but multiple blocks then **stream response** means sending response as multiple blocks like a pipeline
+
+---
+
+-> the go compiler we use doesnt directly know what is proto file and how to execute it so we will seperately compile the .proto file and it will generate us two files called **chat_grpc.pb.go** and **chat.pb.go** 
