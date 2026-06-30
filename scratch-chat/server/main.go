@@ -24,7 +24,7 @@ func (s *server) StreamChat(stream pb.ChatService_StreamChatServer)error{
 				continue
 			}
 			stream.Send(&pb.Response{
-				Server:"server",
+				Server:"vardhan",
 				Text: text,
 			})
 			fmt.Print("Server > ")

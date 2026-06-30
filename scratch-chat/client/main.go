@@ -43,7 +43,7 @@ func main(){
 				log.Printf("Failed %v",err)
 				return
 			}
-			fmt.Println("Client>")
+			fmt.Print("Client>")
 		}
 	}()
 

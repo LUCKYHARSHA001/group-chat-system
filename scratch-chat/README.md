@@ -77,3 +77,44 @@ this file is for **the network & streaming Engine**.
 ->this will also create rules your server must follow to be a valid chat server.  
 ->This provides RegisterChatServiceServer(grpcServer, &server{}) which tells the grpc engine that when client asks for chat service you have to route their network packets directly to specific go methods.  
 
+--- 
+
+As we defined our proto file now we will go to build our server 
+
+## Server:  
+
+1. fmt: It is a package mainly used for formatting text, strings, and printing to the console, fmt is the short form of format.  
+2. log: It is also a go's standard library package it is specifically for writing timestamps and text messages to the console or a file.
+3. os: It is a package used for talking between go and the computer operating system. it allows our Go code to interact with physical files, folders, environment variables, and the system itself.  
+4. bufio: bufio stands for buffered ionput/output it is mainly used for improving the performance drastically when reading or writing data. bufio intoduces an in-memory buffer which acts as a temporary bucket in RAM.  
+5. net: It is go's standard library for network programming.  
+
+```
+type server struct{
+	pb.UnimplementedChatServiceServer
+}
+```
+This embedding is standard gRPC Go pattern for server and it mainly deal with two things:
+1. it gives the server the implementations which have unimplemented error.
+2. It makes the server forward-compatible when we add the upcoming RPCs to the proto later, so older server code still runs and can safely return unimplemented which is not know how to handle yet.  
+```
+stream.Send(&pb.Response{
+	Server:"vardhan",
+	Text: text,
+})
+```
+This block will create a protobuf response and sends to gRPC client
+
+```
+for{
+		req,err:=stream.Recv()
+		if err != nil {
+			log.Printf("\nError receiving from client: %v", err)
+			return err
+		}
+		fmt.Printf("\n[%s]: %s\nServer > ", req.Client, req.Text)
+		os.Stdout.Sync()
+	}
+```
+This block is used for taking the message from the client and giving to server  
+where think of **Recv** is a packet reciver taking each byte as input and holding
