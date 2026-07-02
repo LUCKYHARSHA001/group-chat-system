@@ -118,3 +118,61 @@ for{
 ```
 This block is used for taking the message from the client and giving to server  
 where think of **Recv** is a packet reciver taking each byte as input and holding
+
+---
+
+As we built our server now we will build our client
+
+## Client:  
+```
+conn,err:=grpc.Dial("localhost:5000",grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err!=nil{
+		log.Fatalf("Could not connect to server: %v", err)
+	}
+	defer conn.Close()
+```
+This code block will create a gRPC client connection to server.  
+1. grpc.Dail is used to setup client connection to that address.  
+2. grpc.WithTransportCredentials(insecure.NewCredentials()) tells gRPC not to use TLS. This is fine for local development, but not for production traffic.
+3. conn is connection object used to make gRpc Clients and make rpc calls
+4. defer connn.close() make sures the connection is closed after returning the function.  
+
+```
+stream,err:=client.StreamChat(context.Background())
+	if err!=nil{
+		log.Fatalf("Could not stream chat: %v", err)
+	}
+	log.Println("connected Successfully")
+	fmt.Print("Client > ")
+```
+This code gives the bidirectional streaming connection and sets up the client interface.
+
+```
+scanner:=bufio.NewScanner(os.Stdin)
+		for scanner.Scan(){
+			text:=scanner.Text()
+			if text==""{
+				continue
+			}
+			err:=stream.Send(&pb.Request{
+				Client:"Harsha",
+				Text:text,
+			})
+			if err!=nil{
+				log.Printf("Failed %v",err)
+				return
+			}
+			fmt.Print("Client>")
+		}
+```
+This code block is used to take input from the keboard and sens to the server
+
+```
+res,err:=stream.Recv()
+		if err!=nil{
+			log.Fatalf("error: %v",err)
+		}
+		fmt.Printf("\n[%s]: %s\nClient > ", res.Server, res.Text)
+		os.Stdout.Sync()
+```
+This code block is used to receive messages from server and then displays to user
